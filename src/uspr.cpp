@@ -2,7 +2,6 @@
 using namespace Rcpp;
 using namespace std;
 
-
 #include <iostream>
 #include <cstdio>
 #include <cstring>
@@ -20,12 +19,12 @@ using namespace std;
 #include "uspr/uspr.h"
 
 // [[Rcpp::export]]
-IntegerVector uspr_dist (StringVector tree1,
-                         StringVector tree2,
-                         LogicalVector useTbrApproxEstimate,
-                         LogicalVector useTbrEstimate,
-                         LogicalVector useReplugEstimate) {
-  /* opt, protectB and *Estimate default to TRUE, all others to FALSE */
+IntegerVector uspr_dist (const StringVector tree1,
+                         const StringVector tree2,
+                         const LogicalVector useTbrApproxEstimate,
+                         const LogicalVector useTbrEstimate,
+                         const LogicalVector useReplugEstimate) {
+  /* use[...]Estimate all default to TRUE */
 
   USE_TBR_APPROX_ESTIMATE = useTbrApproxEstimate[0];
   USE_TBR_ESTIMATE = useTbrEstimate[0];
@@ -40,7 +39,7 @@ IntegerVector uspr_dist (StringVector tree1,
     throw length_error("Number of trees in tree1 and tree2 must match");
   }
   IntegerVector ret(tree1.size());
-  for (int i = 0; i < tree1.size(); i++) {
+  for (int i = 0; i != tree1.size(); i++) {
     // load into data structures
     string tr1 = as<string>(tree1(i));
     string tr2 = as<string>(tree2(i));
@@ -50,18 +49,18 @@ IntegerVector uspr_dist (StringVector tree1,
     F2.normalize_order();
     ret(i) = uspr_distance(F1, F2);
   }
-  return (ret);
+  return ret;
 }
 
 // [[Rcpp::export]]
-List tbr_dist (StringVector tree1,
-                        StringVector tree2,
-                        LogicalVector printMafs,
-                        LogicalVector countMafs,
-                        LogicalVector optimize,
-                        LogicalVector protectB,
-                        LogicalVector exact,
-                        LogicalVector approximate) {
+List tbr_dist (const StringVector tree1,
+               const StringVector tree2,
+               const LogicalVector printMafs,
+               const LogicalVector countMafs,
+               const LogicalVector optimize,
+               const LogicalVector protectB,
+               const LogicalVector exact,
+               const LogicalVector approximate) {
   /* optimize, protectB and *Estimate default to TRUE, all others to FALSE */
   bool PRINT_mAFS = printMafs[0];
   bool COUNT_mAFS = countMafs[0];

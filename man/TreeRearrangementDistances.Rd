@@ -104,7 +104,8 @@ this measure is approximate only.  \code{exact} will only serve to guarantee
 that a MAF corresponding to the exact TBR distance is among those sampled.
 }
 \description{
-Calculate SPR, TBR and Replug distances on unrooted trees.
+Calculate SPR, TBR and Replug distances on unrooted trees, and the
+information content of the maximum agreement forest.
 }
 \details{
 Note that these distances are NP-hard to compute, so the running time of the
@@ -122,16 +123,15 @@ rspr is not yet incorporated in this R package; please
 if this would be useful to you.
 }
 \examples{
-tree1 <- TreeTools::BalancedTree(9)
-tree2 <- TreeTools::PectinateTree(9)
+tree1 <- TreeTools::BalancedTree(6)
+tree2 <- TreeTools::PectinateTree(6)
 
 # SPR distance
 USPRDist(tree1, tree2)
+
 # Replug distance
 ReplugDist(tree1, tree2)
 ReplugDist(tree1, tree2, maf = TRUE)
-tree1 <- TreeTools::BalancedTree(6)
-tree2 <- TreeTools::PectinateTree(6)
 
 # TBR distance between two trees
 TBRDist(tree1, tree2, exact = TRUE)
