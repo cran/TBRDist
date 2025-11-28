@@ -1,4 +1,4 @@
-## ---- align='center', fig.width=7---------------------------------------------
+## ----align='center', fig.width=7----------------------------------------------
 library('TreeTools', quietly = TRUE, warn.conflicts = FALSE)
 
 tree1 <- BalancedTree(10)
